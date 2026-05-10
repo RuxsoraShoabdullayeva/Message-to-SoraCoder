@@ -5,9 +5,7 @@
 }
 
 .list{
-  width: 1000px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 40px;
@@ -18,7 +16,6 @@
     width: 200px;
     height: 300px;
     display: flex;
-    flex-direction: column;
 }
 
 img{
@@ -28,5 +25,24 @@ img{
 
 a{
     text-decoration: none;
+}
+
+
+.modal{
+    display: none;
+    display: none;
+align-items: center;
+justify-content: space-evenly;
+padding: 1rem;
+background: #a59f9f;
+border-radius: 1rem;
+position: absolute;
+top:50%;
+left: 40%;
+z-index: 1000;
+}
+
+.modal.active{
+    display: block;
 }
 

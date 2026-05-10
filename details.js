@@ -31,3 +31,21 @@ async function productID() {
 }
 productID();
 
+
+
+
+// async function addComment() {
+//   let response = await fetch(
+//     "https://shop-co-backend-k5f0.onrender.com/api/products/${productId}/comments",
+//     {
+//       method: "POST",
+//     },
+//   );
+
+//   let data = await response.json();
+//   console.log(data);
+
+//   productsRender(data, list);
+//   productsRender(data, cards);
+// }
+
