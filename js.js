@@ -20,9 +20,9 @@ function productsRender(arr, ul) {
   ul.innerHTML = arr.map(
       (element) =>
         ` <li class="item">
-            <img src="${element.images[0]}" > <br>
             <p class="title">${element.title}</p> <br>
-            <p class="price">${element.price}</p> <br>
+            <p class="description">${element.description}</p> <br>
+            <p class="price">${element.price}</p> <br> 
             <p class="category">${element.category}</p> <br>
             <img src="${element.images?.[0] || 'placeholder.jpg'}">
         </li>
