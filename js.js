@@ -15,16 +15,18 @@ async function getProducts() {
   productsRender(data, list);
 }
 
+getProducts();
 
 function productsRender(arr, ul) {
-  ul.innerHTML = arr.map(
+  ul.innerHTML = arr
+    .map(
       (element) =>
         ` <li class="item">
             <p class="title">${element.title}</p> <br>
-            <p class="description">${element.description}</p> <br>
+            <p class="description">${element.description || ""}</p> <br>
             <p class="price">${element.price}</p> <br> 
             <p class="category">${element.category}</p> <br>
-            <img src="${element.images?.[0] || 'placeholder.jpg'}">
+            <img src="${element.images?.[0] || "placeholder.jpg"}">
         </li>
 `,
     )
@@ -41,43 +43,53 @@ function openModal() {
   modal.classList.toggle("active");
 }
 
+let titleInput = document.querySelector(".title");
+let descInput = document.querySelector(".description");
+let priceInput = document.querySelector(".price");
+let categoryInp = document.querySelector(".category");
+let imagesInp = document.querySelector(".images");
+let typeInp = document.querySelector(".type");
+let colorsInp = document.querySelector(".colors");
+let sizeInp = document.querySelector(".size");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  let titleInput = document.querySelector(".title").value;
-  let descInput = document.querySelector(".description").value;
-  let priceInput = document.querySelector(".price").value;
-  let categoryInp = document.querySelector(".category").value;
-  let imagesInp = document.querySelector('.images').value;
+  if (!imagesInp.files.length) {
+    console.log("Rasm tanlanmagan");
+    return;
+  }
 
-  let title = titleInput;
-  let description = descInput;
-  let price = priceInput;
-  let category = categoryInp;
-  let images = imagesInp;
+  const formData = new FormData();
+  formData.append("title", titleInput.value);
+  formData.append("description", descInput?.value);
+  formData.append("price", priceInput.value);
+  formData.append("category", categoryInp.value);
+  formData.append("type", typeInp.value);
+  formData.append("colors", colorsInp.value);
+  formData.append("size", sizeInp.value);
+  formData.append("images", imagesInp.files[0]);
 
-  addProduct(title, description, price, category, images);
+  for (let [key, value] of formData.entries()) {
+    console.log(key, value);
+  }
+
+  addProduct(formData);
+  getProducts();
 });
 
-async function addProduct(title, description, price, category, images) {
+async function addProduct(formDataParam) {
   let token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDBhYTVlNTQ2NzFiZWY1MTcyNjIxOCIsImVtYWlsIjoicnV4c29yYTQ0QGV4YW1wbGUuY29tIiwiZmlyc3ROYW1lIjoicnV4c29yYSIsImxhc3ROYW1lIjoiVmFsaXlldmEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Nzg0Mjg1MTAsImV4cCI6MTc3ODUxNDkxMH0.3OXBWCwQ-zAlrqRi8SjHBqMXBR97aY4_2DG13eZDW3c";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZDVjODM1ZGFlZDE3OGE1NTQyYzdlZCIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiYWRtaW4iLCJsYXN0TmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzc4OTIzMDY3LCJleHAiOjE3NzkwMDk0Njd9.FwrId7KDoweuafhyesJzeleZ3F0JZesqwyifAyDzPoU";
+
   let response = await fetch(
-    "https://shop-co-backend-k5f0.onrender.com/api/products",
+    "https://shop-co-backend-k5f0.onrender.com/api/products/with-images",
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        title: title,
-        description: description,
-        price: price,
-        category: category,
-        images: [images],
-      }),
+      body: formDataParam,
     },
   );
 
@@ -88,5 +100,3 @@ async function addProduct(title, description, price, category, images) {
     throw new Error("Mahsulot qoshilmadi");
   }
 }
-
-getProducts();

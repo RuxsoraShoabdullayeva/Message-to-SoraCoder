@@ -12,18 +12,21 @@
     <button class="btn" onclick="openModal()">+ Add product</button>
 
     <div class="modal">
-       <form class="form">
-         <input type="text" class="title" placeholder="Write title">
-        <input type="text" class="description">
-        <input type="text" class="price">
+      <form class="form">
+        <input type="text" class="title" placeholder="Write title" />
+        <input type="text" class="description" />
+        <input type="text" class="price" />
+        <input type="text" class="type" placeholder="Write type" />
+        <input type="text" class="colors" placeholder="Write colors" />
+        <input type="text" class="size" placeholder="Write size" />
         <select name="category" id="category" class="category">
-            <option selected value="tanlang">tanlang</option>
-            <option value="men"> Men</option>
-            <option value="women">Women</option>
+          <option selected value="tanlang">tanlang</option>
+          <option value="men">Men</option>
+          <option value="women">Women</option>
         </select>
-        <input type="file" class="images">
+        <input type="file" class="images" />
         <button class="add-btn">add</button>
-       </form>
+      </form>
     </div>
 
     <script src="./js.js"></script>
